@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <title>Hello world on Node</title>
+
+  <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/files/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+  <div class="d-flex justify-content-center align-items-center mt-4">
+    <div class="c-main">
+
+      <div class="d-flex flex-row-reverse align-items-center c-top">
+        <div class="p-2">
+          <button onclick="closeApp()" type="button" class="btn" name="button">close</button>
+        </div>
+        <div class="p-2" style="margin-right:auto;">
+          status : <span id="app-status" >off</span>
+        </div>
+      </div>
+
+      <div class="p-4">
+
+        <h3 class="text-center" >Hello World</h3>
+
+        <div class="p-3">
+          version
+        </div>
+
+        <div class="p-3">
+          some text will be here later ...
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <script src="../node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script type="text/javascript">
+    var io = io();
+
+    io.on('connect', (socket) => {
+      $('#app-status').text('Runing').css('color','green');
+    });
+
+    io.on('disconnect', () => {
+      $('#app-status').text('Closed app').css('color','red');
+    });
+
+    function closeApp() {
+      io.emit('close-app');
+    }
+  </script>
+</body>
+</html>
